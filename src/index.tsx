@@ -40,17 +40,28 @@ function App() {
     }
   };
 
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setValue("birthYear", e.target.value);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>姓名</label>
       <input {...register("name")} defaultValue="test" />
       <label>出生年份</label>
-      <select {...register("birthYear")} onClick={handleClick}>
-        <option value="">请选择出生年份</option>
-        {years.map((year) => (
-          <option key={year}>{year}</option>
-        ))}
-      </select>
+      <div style={{ position: "relative" }}>
+        <input {...register("birthYear")} placeholder="请选择出生年份" />
+        <select
+          onClick={handleClick}
+          onChange={handleChange}
+          defaultValue="1980"
+          style={{ position: "absolute", top: 0, opacity: 0 }}
+        >
+          {years.map((year) => (
+            <option key={year}>{year}</option>
+          ))}
+        </select>
+      </div>
       <input type="submit" />
     </form>
   );
